@@ -20,8 +20,8 @@
 
 var CALACA_CONFIGS = {
 	url: "",
-	index_name: "",
-	type: "",
+	index_name: "merge",
+	type: "document",
 	size: 10,
 	search_delay: 500
 }

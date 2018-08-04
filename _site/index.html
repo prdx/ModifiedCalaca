@@ -22,23 +22,45 @@
 
 <!-- Listing of search results -->
 <main class='results-container' ng-cloak>
-  <section class='results-info'>
-    <p id='response-details'>{{(hits | number) || 0}} {{resultsLabel || 'results'}} ({{(timeTook || 0)}}ms)</p>
-    <p ng-show='paginationEnabled()' id='pagination-details'>Showing {{paginationLowerBound}} - {{paginationUpperBound}}</p>
-  </section>
-  <section class='results'>
-    <p class='no-results' ng-show='!results.length && !loading'>No Results</p>
-    <article class='result' ng-repeat='result in results track by $id(result)'>
-      <h2>{{result.name}}</h2>
-      <p>{{result.description}}</p>
-    </article>
-  </section>
-  <section class='pagination-controls'>
-    <button ng-click='search(-1)' ng-show='paginationEnabled() && offset !== 0' class='pager'>Previous</button><button ng-click='search(1)' ng-show='paginationEnabled()' class='pager'>Next</button>
-  </section>
+<table style="width: 100%;height:300px" ng-col-resizeable>
+  <tr>
+    <td style='vertical-align: top; width:30%'>
+      <section class='results-info'>
+        <p id='response-details'>{{(hits | number) || 0}} {{resultsLabel || 'results'}} ({{(timeTook || 0)}}ms)</p>
+        <p ng-show='paginationEnabled()' id='pagination-details'>Showing {{paginationLowerBound}} - {{paginationUpperBound}}</p>
+      </section>
+      <section class='results'>
+        <p class='no-results' ng-show='!results.length && !loading'>No Results</p>
+        <article class='result' ng-repeat='result in results track by $id(result)'>
+          <a href="{{result._id}}" target='web-preview'>
+            <h2>{{result.title}}</h2>
+          </a>
+          <cite>{{result._id}}</cite>
+          <p ng-repeat='highlight in result.highlight.text' ng-bind-html="highlight"></p>
+          <br />
+          <form>
+            <input type="radio" name="relevance" value="0">0. Not relevant
+            <input type="radio" name="relevance" value="1">1. Somewhat relevant
+            <input type="radio" name="relevance" value="2">2. Very relevant  
+          </form>
+        </article>
+      </section>
+      <section class='pagination-controls'>
+        <button ng-click='search(-1)' ng-show='paginationEnabled() && offset !== 0' class='pager'>Previous</button><button ng-click='search(1)' ng-show='paginationEnabled()' class='pager'>Next</button>
+      </section>
+    </td>
+    <td>
+      <div class='results-preview'>
+        <iframe name='web-preview' src='' class='web-preview' >
+        </iframe>
+      </div>
+    </td>
+  </tr>
+</table>
 </main>
 
 <!-- Load resources -->
+<script src='bower_components/angular-sanitize/angular-sanitize.min.js' type='text/javascript'></script>
 <script src='bower_components/angular-animate/angular-animate.min.js' type='text/javascript'></script>
 <script src='bower_components/elasticsearch/elasticsearch.angular.min.js' type='text/javascript'></script>
 <script src='js/config.js' type='text/javascript'></script>
