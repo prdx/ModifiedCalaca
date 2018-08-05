@@ -17,6 +17,7 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
 
         //Init empty array
         $scope.results = [];
+        $scope.name = "";
 
         //Init offset
         $scope.offset = 0;
@@ -31,6 +32,7 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
                 $scope.search(mode)
             }, CALACA_CONFIGS.search_delay);
         }
+
 
         //On search, reinitialize array, then perform search and load results
         $scope.search = function(m){

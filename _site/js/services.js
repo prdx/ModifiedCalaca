@@ -16,6 +16,7 @@ Calaca.factory('calacaService', ['$q', 'esFactory', '$location', function($q, el
 
   var client = elasticsearch({ host: CALACA_CONFIGS.url });
 
+
   var search = function(query, mode, offset){
 
     var deferred = $q.defer();

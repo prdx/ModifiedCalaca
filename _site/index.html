@@ -15,9 +15,17 @@
 <!-- Title and search box -->
 <header class='jumbotron'>
   <h1 class='title'>Calaca</h1>
+  <div class='name-box-container'>
+    <form name='nameForm'>
+      <input id='name' name='name' type='text' ng-model='name' class='name-box' placeholder='Assessor' autofocus required />
+      <p class="error" ng-show="nameForm.name.$error.required">
+        Required!</p>
+    </form>
+  </div>
   <div class='search-box-container'>
     <input type='text' class='search-box' placeholder='Search' autofocus ng-model='query' ng-change='delayedSearch(0)'>
   </div>
+  <h2 class='stats'>Statistics:</h2>
 </header>
 
 <!-- Listing of search results -->
@@ -39,10 +47,11 @@
           <p ng-repeat='highlight in result.highlight.text' ng-bind-html="highlight"></p>
           <br />
           <form>
-            <input type="radio" name="relevance" value="0">0. Not relevant
-            <input type="radio" name="relevance" value="1">1. Somewhat relevant
-            <input type="radio" name="relevance" value="2">2. Very relevant  
+            <input type="radio" name="relevance" ng-model="result.relevance" value="0">0. Not relevant
+            <input type="radio" name="relevance" ng-model="result.relevance" value="1">1. Somewhat relevant
+            <input type="radio" name="relevance" ng-model="result.relevance" value="2">2. Very relevant  
           </form>
+          {{result.docno}} | {{result.relevance}} 
         </article>
       </section>
       <section class='pagination-controls'>
