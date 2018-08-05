@@ -22,6 +22,6 @@ var CALACA_CONFIGS = {
 	url: "",
 	index_name: "merge",
 	type: "document",
-	size: 10,
+	size: 200,
 	search_delay: 500
 }

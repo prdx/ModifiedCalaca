@@ -18,6 +18,7 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
         //Init empty array
         $scope.results = [];
         $scope.name = "";
+        $scope.data = {};
 
         //Init offset
         $scope.offset = 0;
