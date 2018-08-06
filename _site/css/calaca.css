@@ -31,10 +31,10 @@ body {
   padding-top: 70px;
 }
 .stats {
-  font-size: 40px;
+  font-size: 20px;
   color: white;
   text-align: center;
-  padding-top: 70px;
+  padding-top: 20px;
 }
 .search-box-container {
   width: 860px;
@@ -43,6 +43,17 @@ body {
   margin-right: auto;
   margin-top: 60px;
   border-radius: 5px;
+}
+.action-box-container {
+  width: 860px;
+  height: 69px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border-radius: 5px;
+}
+.copyButton {
+  margin-top: 20px;
 }
 .name-box-container {
   width: 860px;

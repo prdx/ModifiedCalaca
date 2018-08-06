@@ -19,6 +19,7 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
         $scope.results = [];
         $scope.name = "";
         $scope.data = {};
+        $scope.counter = 0;
 
         //Init offset
         $scope.offset = 0;
@@ -37,6 +38,10 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
 
         //On search, reinitialize array, then perform search and load results
         $scope.search = function(m){
+            if($scope.data[$scope.query] == undefined) {
+              $scope.data[$scope.query] = {};
+            }
+            $scope.counter = Object.keys($scope.data[$scope.query]).length;
             $scope.results = [];
             $scope.offset = m == 0 ? 0 : $scope.offset;//Clear offset if new query
             $scope.loading = m == 0 ? false : true;//Reset loading flag if new query
@@ -51,6 +56,29 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
             $scope.paginationUpperBound = ($scope.offset == 0) ? maxResultsSize : $scope.offset + maxResultsSize;
             $scope.loadResults(m);
         };
+
+        $scope.storeData = function(url, relevance) {
+          $scope.data[$scope.query][url] = relevance;
+          $scope.counter = Object.keys($scope.data[$scope.query]).length;
+          console.log($scope.counter);
+        }
+
+        $scope.copyToClipBoard = function() {
+          var text = ""
+          for(var key in $scope.data) {
+            var value = $scope.data[key];
+            for(var url in value) {
+              text += $scope.query + "\t" + $scope.name + "\t" + url + "\t" + value[url] + "\n";
+            }
+          }
+          var $temp = $("<textarea>");
+          $("body").append($temp);
+          $temp.val(text).select();
+          document.execCommand("copy");
+          $temp.remove();
+          alert("Copied to clipboard");
+        }
+
 
         //Load search results into array
         $scope.loadResults = function(m) {
@@ -80,6 +108,7 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
                 }
             });
         };
+
 
         $scope.paginationEnabled = function() {
             return paginationTriggered ? true : false;
